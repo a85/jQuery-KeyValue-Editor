@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"></link>
+	<style>
+	.row {
+		padding:5px;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>jQuery KeyValueEditor</h1>
+
+		<h3>Default behavior</h3>
+		<p>
+			The jQuery KeyValueEditor plugin can be used to create a UI for adding key-value-pairs. There are two modes of input: a form with separate text boxes for individual keys and values, and a textarea to copy-paste larger blocks of text.
+		</p>
+		<p>
+			The conversion to/from the two modes of input is customizable. The default functions split the text into rows, and the individual rows by ':', to give keys and values (for HTTP headers).
+
+			Customizable options:
+			<ul>
+				<li> deleteButton: The string//html to show to delete a row. Default: "Delete"</li>
+				<li> toggleButton: The string//html to show to switche between the form and textarea views. Default: "Toggle view</li>
+				<li> placeHolderKey: The placeholder for the key textbox. Default: "Key"</li>
+				<li> placeHolderValue: The placeholder for the value textbox. Default: "Value" </li>
+				<li> textToFormFunction: Function to convert text to key-value pairs.</li>
+				<li> formToTextFunction: Function to convert key-value pairs to text.</li>
+			</ul>
+		</p>
+		<br>
+		<div class="row bg-info">
+			<div class="col-md-6">
+				<p>This is the default usage of the plugin. No options are set.</p>
+				<code>
+					$("#kve_default").keyvalueeditor('init');
+				</code>
+			</div>
+
+			<div class="col-md-6">
+				<div id="kve_default"></div>
+			</div>
+		</div>
+		<br><br>
+		<div class="row bg-info">
+			<div class="col-md-6">
+				<p>Plugin with custom options.</p>
+				<code>
+					 var params = {<br>
+					 &nbsp;&nbsp;&nbsp;placeHolderKey:"Key_custom",<br>
+					 &nbsp;&nbsp;&nbsp;placeHolderValue:"Value_custom",<br>
+					 &nbsp;&nbsp;&nbsp;toggleButton: "Toggle_custom",<br>
+					 &nbsp;&nbsp;&nbsp;deleteButton:'&lt;img class="deleteButton" src="img/delete.png"&gt;'<br>
+					};<br>
+					$("#kve_custom").keyvalueeditor('init',params);
+				</code>
+			</div>
+
+			<div class="col-md-6">
+				<div id="kve_custom"></div>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="jquery.keyvalueeditor.js"></script>
+	<script type="text/javascript">
+
+        var params = {
+            placeHolderKey:"Key_custom",
+            placeHolderValue:"Value_custom",
+            toggleButton: "Toggle_custom",
+            deleteButton:'<img class="deleteButton" src="img/delete.png">'
+        };
+
+		$("#kve_default").keyvalueeditor('init');
+		$("#kve_custom").keyvalueeditor('init',params);
+
+	</script>
+</body>
+</html>

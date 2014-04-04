@@ -22,7 +22,7 @@
 
                     if (data.settings.editableKeys) {
                         var toggleA = methods.getToggleLink(data);
-                        var textareaDiv="<div id='keyvalueeditor-textarea-div' style='display:none'><textarea id='keyvalueeditor-textarea'></textarea></div>";
+                        var textareaDiv="<div id='keyvalueeditor-textarea-div' style='display:none'><textarea id='keyvalueeditor-textarea' rows='6' cols='55'></textarea></div>";
                         var h = "<div id='keyvalueeditor-form-div'>" + methods.getLastRow(data); + "</div>";
                         $this.append(toggleA);
                         $this.append(textareaDiv);
@@ -53,6 +53,7 @@
 
             var h;
             h = '<div class="keyvalueeditor-row keyvalueeditor-last">';
+            h += '<input tabindex="-1" type="checkbox" class="keyvalueeditor-rowcheck" checked="checked">  ';
             h += '<input type="text" class="keyvalueeditor-key" placeHolder="' + pKey
                 + '" name="keyvalueeditor-key"'
                 + '"/>';
@@ -89,6 +90,7 @@
             var h;
 
             h = '<div class="keyvalueeditor-row">';
+            h += '<input tabindex="-1" type="checkbox" class="keyvalueeditor-rowcheck" checked="checked">  ';
             h += '<input type="text" class="keyvalueeditor-key" placeHolder="' + pKey
                 + '" name="keyvalueeditor-' + key
                 + '" value="' + key + '"';
@@ -154,10 +156,15 @@
         },
 
         deleteRowHandler:function (event) {
+            var parentDiv = $(this).parent().parent();
+
             var target = event.currentTarget;
             $(target).parent().remove();
             var data = event.data;
             data.settings.onDeleteRow();
+
+            var currentFormFields = methods.getValues(parentDiv);
+            $("#keyvalueeditor-textarea").val( methods.settings.formToTextFunction(currentFormFields) );
         },
 
         getToggleLink:function(state) {
@@ -261,6 +268,10 @@
             }
             var pairs = [];
             parentDiv.find('.keyvalueeditor-row').each(function () {
+                var isEnabled = $(this).find('.keyvalueeditor-rowcheck').is(':checked');
+                if(!isEnabled) {
+                    return true;
+                }
                 var key = $(this).find('.keyvalueeditor-key').val();
                 var value = $(this).find('.keyvalueeditor-value').val();
                 var type = $(this).find('.keyvalueeditor-valueTypeSelector').val();
