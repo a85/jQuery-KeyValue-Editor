@@ -36,10 +36,22 @@
 				<code>
 					$("#kve_default").keyvalueeditor('init');
 				</code>
+				<p>The values can get by calling getValues.</p>
+				<code>
+					var values=$("#kve_default").keyvalueeditor('getValues');
+				</code>
+				<p>The values can add programatically by calling addParams</p>
+				<code>
+					$("#kve_default").keyvalueeditor("addParams",[{key:"foo",value:"bar"}]);
+				</code>
+				<button onclick="add()">Do it!</button>
 			</div>
 
 			<div class="col-md-6">
 				<div id="kve_default"></div>
+				<p>Current values:</p>
+				<pre id="kve_default_values">
+				</pre>
 			</div>
 		</div>
 		<br><br>
@@ -61,10 +73,10 @@
 				<div id="kve_custom"></div>
 			</div>
 		</div>
-		
-		
+
+
 	</div>
-	
+
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script src="jquery.keyvalueeditor.js"></script>
@@ -80,6 +92,15 @@
 		$("#kve_default").keyvalueeditor('init');
 		$("#kve_custom").keyvalueeditor('init',params);
 
+	</script>
+	<script>
+		setInterval(function () {
+			var values=$("#kve_default").keyvalueeditor("getValues");
+			$("#kve_default_values").text(JSON.stringify(values,null,4));
+		},1000);
+		function add() {
+		    $("#kve_default").keyvalueeditor("addParams",[{key:"foo",value:"bar"}]);
+		}
 	</script>
 </body>
 </html>
